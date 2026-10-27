@@ -1,141 +1,137 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EduAI Directory - Alat AI Terbaik untuk Guru & Dosen</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GuruAI – Direktori Alat AI untuk Pengajar</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<style>
+  :root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body { background: #f8fafc; }
+  @media (prefers-color-scheme: dark) { body { background: #0b1220; } }
+  .chips::-webkit-scrollbar { display: none; }
+  .chips { scrollbar-width: none; }
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans">
+<body class="font-sans text-slate-800 dark:text-slate-100 antialiased">
 
-  <!-- Header -->
-  <header class="bg-white border-b border-slate-200 py-8 px-4 text-center">
-    <h1 class="text-3xl font-bold text-indigo-600">EduAI Directory</h1>
-    <p class="text-slate-600 mt-2 max-w-xl mx-auto">
-      Kumpulan alat AI pilihan untuk membantu pembuatan RPP, kuis otomatis, slide presentasi, dan materi ajar interaktif.
-    </p>
-  </header>
-
-  <!-- Filter & Search Section -->
-  <main class="max-w-5xl mx-auto px-4 py-8">
-    <div class="flex flex-col sm:flex-row gap-4 justify-between items-center mb-8">
-      <!-- Kolom Pencarian -->
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="Cari alat AI (misal: RPP, kuis, presentasi)..."
-        class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        onkeyup="filterTools()"
-      />
-      <!-- Filter Kategori -->
-      <select
-        id="categorySelect"
-        class="w-full sm:w-auto p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
-        onchange="filterTools()"
-      >
-        <option value="All">Semua Kategori</option>
-        <option value="RPP & Modul">RPP & Modul Ajar</option>
-        <option value="Kuis & Asesmen">Kuis & Asesmen</option>
-        <option value="Presentasi">Presentasi & Media</option>
-      </select>
+<header class="border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+  <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-3">
+    <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white grid place-items-center text-lg">🎓</div>
+    <div>
+      <h1 class="text-lg font-bold leading-tight">GuruAI</h1>
+      <p class="text-xs text-slate-500 dark:text-slate-400">Direktori alat AI untuk pengajar</p>
     </div>
+  </div>
+</header>
 
-    <!-- Grid Kartu Alat AI -->
-    <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Data dimasukkan otomatis oleh JavaScript -->
+<main class="max-w-6xl mx-auto px-4 py-8">
+  <section class="text-center max-w-2xl mx-auto">
+    <h2 class="text-2xl sm:text-4xl font-bold tracking-tight">Temukan alat AI yang tepat untuk kelas Anda</h2>
+    <p class="mt-3 text-slate-600 dark:text-slate-400">Hemat waktu menyusun materi, menilai tugas, dan membuat pembelajaran lebih menarik.</p>
+
+    <div class="relative mt-6">
+      <span class="absolute inset-y-0 left-4 flex items-center text-slate-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </span>
+      <input id="search" type="search" placeholder="Cari alat, misalnya “kuis” atau “RPP”…" aria-label="Cari alat AI"
+        class="w-full rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 pl-12 pr-4 py-3.5 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 placeholder:text-slate-400">
     </div>
-  </main>
+  </section>
 
-  <script>
-    // Data dummy 6 Alat AI untuk Guru
-    const tools = [
-      {
-        name: "MagicSchool.ai",
-        category: "RPP & Modul",
-        desc: "Membuat RPP, silabus, dan lembar kerja siswa secara otomatis dalam hitungan detik.",
-        price: "Gratis / Freemium",
-        url: "https://www.magicschool.ai"
-      },
-      {
-        name: "Quizizz AI",
-        category: "Kuis & Asesmen",
-        desc: "Mengubah file PDF atau teks materi pelajaran menjadi kuis interaktif otomatis.",
-        price: "Gratis / Premium",
-        url: "https://quizizz.com"
-      },
-      {
-        name: "Gamma.app",
-        category: "Presentasi",
-        desc: "Membuat slide presentasi mengajar yang menarik hanya dari ide kalimat singkat.",
-        price: "Gratis / Freemium",
-        url: "https://gamma.app"
-      },
-      {
-        name: "Eduaide.ai",
-        category: "RPP & Modul",
-        desc: "Menyediakan 100+ tipe generator konten pembelajaran dan instrumen penilaian.",
-        price: "Freemium",
-        url: "https://www.eduaide.ai"
-      },
-      {
-        name: "Conker.ai",
-        category: "Kuis & Asesmen",
-        desc: "Pembuat soal pilihan ganda atau esai yang disesuaikan dengan tingkat usia siswa.",
-        price: "Gratis",
-        url: "https://www.conker.ai"
-      },
-      {
-        name: "Curipod",
-        category: "Presentasi",
-        desc: "Membuat slide presentasi interaktif lengkap dengan polling dan pertanyaan langsung.",
-        price: "Gratis / Freemium",
-        url: "https://curipod.com"
-      }
-    ];
+  <div id="chips" class="chips flex gap-2 overflow-x-auto mt-6 pb-2 sm:flex-wrap sm:justify-center" role="tablist" aria-label="Filter kategori"></div>
 
-    function renderTools(data) {
-      const grid = document.getElementById("toolsGrid");
-      grid.innerHTML = "";
+  <p id="count" class="mt-6 mb-3 text-sm text-slate-500 dark:text-slate-400"></p>
 
-      if (data.length === 0) {
-        grid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-8">Alat AI tidak ditemukan.</p>`;
-        return;
-      }
+  <section id="grid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"></section>
 
-      data.forEach(tool => {
-        grid.innerHTML += `
-          <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
-            <div>
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-bold text-lg text-slate-900">${tool.name}</h3>
-                <span class="text-xs bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full font-medium">${tool.category}</span>
-              </div>
-              <p class="text-slate-600 text-sm mb-4">${tool.desc}</p>
-            </div>
-            <div class="flex items-center justify-between pt-4 border-t border-slate-100 mt-2">
-              <span class="text-xs text-slate-500">${tool.price}</span>
-              <a href="${tool.url}" target="_blank" class="text-sm text-indigo-600 font-semibold hover:underline">Kunjungi &rarr;</a>
-            </div>
-          </div>
-        `;
-      });
-    }
+  <div id="empty" class="hidden text-center py-16">
+    <div class="text-4xl">🔎</div>
+    <p class="mt-3 font-semibold">Alat tidak ditemukan</p>
+    <p class="text-sm text-slate-500 dark:text-slate-400">Coba kata kunci lain atau pilih kategori “Semua”.</p>
+  </div>
+</main>
 
-    function filterTools() {
-      const search = document.getElementById("searchInput").value.toLowerCase();
-      const category = document.getElementById("categorySelect").value;
+<footer class="border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400 px-4">
+  Fitur dan harga dapat berubah. Periksa situs resmi masing-masing alat sebelum digunakan di kelas.
+</footer>
 
-      const filtered = tools.filter(tool => {
-        const matchSearch = tool.name.toLowerCase().includes(search) || tool.desc.toLowerCase().includes(search);
-        const matchCategory = category === "All" || tool.category === category;
-        return matchSearch && matchCategory;
-      });
+<script>
+const tools = [
+  { name: "MagicSchool AI", cat: "Perencanaan", price: "Freemium", icon: "✨", url: "https://www.magicschool.ai", desc: "Puluhan alat siap pakai untuk rencana pelajaran, rubrik, dan umpan balik siswa." },
+  { name: "ChatGPT", cat: "Asisten Umum", price: "Freemium", icon: "💬", url: "https://chatgpt.com", desc: "Asisten percakapan serbaguna untuk menyusun materi, soal, dan ide kegiatan kelas." },
+  { name: "Claude", cat: "Asisten Umum", price: "Freemium", icon: "🧠", url: "https://claude.ai", desc: "Asisten AI untuk menulis, merangkum bacaan panjang, dan merancang modul ajar." },
+  { name: "Gemini", cat: "Asisten Umum", price: "Freemium", icon: "🌟", url: "https://gemini.google.com", desc: "Asisten AI Google yang terintegrasi dengan Docs, Slides, dan Classroom." },
+  { name: "NotebookLM", cat: "Riset", price: "Gratis", icon: "📓", url: "https://notebooklm.google.com", desc: "Unggah sumber bacaan lalu tanyakan isinya, buat ringkasan dan panduan belajar." },
+  { name: "Perplexity", cat: "Riset", price: "Freemium", icon: "🔭", url: "https://www.perplexity.ai", desc: "Mesin pencari berbasis AI yang menyertakan sumber untuk setiap jawaban." },
+  { name: "Diffit", cat: "Konten Materi", price: "Gratis", icon: "📄", url: "https://web.diffit.me", desc: "Ubah teks atau topik menjadi bacaan yang disesuaikan tingkat kemampuan siswa." },
+  { name: "Brisk Teaching", cat: "Konten Materi", price: "Freemium", icon: "⚡", url: "https://www.briskteaching.com", desc: "Ekstensi Chrome untuk membuat materi dan memberi umpan balik langsung di Google Docs." },
+  { name: "Eduaide.ai", cat: "Perencanaan", price: "Freemium", icon: "🗂️", url: "https://www.eduaide.ai", desc: "Asisten perencanaan dengan banyak templat sumber belajar dan aktivitas." },
+  { name: "Curipod", cat: "Presentasi", price: "Freemium", icon: "🎤", url: "https://curipod.com", desc: "Buat pelajaran interaktif dengan polling, awan kata, dan pertanyaan terbuka dalam hitungan detik." },
+  { name: "Gamma", cat: "Presentasi", price: "Freemium", icon: "🖼️", url: "https://gamma.app", desc: "Hasilkan slide, dokumen, dan halaman web yang rapi dari satu perintah singkat." },
+  { name: "Canva Magic Studio", cat: "Presentasi", price: "Freemium", icon: "🎨", url: "https://www.canva.com/magic", desc: "Desain poster, infografis, dan lembar kerja dengan bantuan AI. Tersedia gratis untuk guru terverifikasi." },
+  { name: "Quizizz AI", cat: "Penilaian", price: "Freemium", icon: "❓", url: "https://quizizz.com", desc: "Buat kuis dan permainan evaluasi otomatis dari topik atau dokumen Anda." },
+  { name: "Kahoot! AI", cat: "Penilaian", price: "Freemium", icon: "🎯", url: "https://kahoot.com", desc: "Generator kuis AI untuk membuat sesi ulangan yang seru dan kompetitif." },
+  { name: "Khanmigo", cat: "Penilaian", price: "Berbayar", icon: "🧑‍🏫", url: "https://www.khanmigo.ai", desc: "Tutor dan asisten guru dari Khan Academy yang membimbing siswa tanpa memberi jawaban langsung." },
+  { name: "Grammarly", cat: "Administrasi", price: "Freemium", icon: "✍️", url: "https://www.grammarly.com", desc: "Periksa tata bahasa dan gaya tulisan untuk surat, laporan, dan umpan balik siswa." }
+];
 
-      renderTools(filtered);
-    }
+const cats = ["Semua", ...new Set(tools.map(t => t.cat))];
+const priceStyle = {
+  "Gratis": "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+  "Freemium": "bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300",
+  "Berbayar": "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300"
+};
 
-    // Tampilkan data awal saat halaman dimuat
-    renderTools(tools);
-  </script>
+let activeCat = "Semua";
+const $ = id => document.getElementById(id);
+
+function renderChips() {
+  $("chips").innerHTML = cats.map(c => {
+    const on = c === activeCat;
+    const cls = on
+      ? "bg-indigo-600 text-white border-indigo-600"
+      : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-indigo-400";
+    return `<button role="tab" aria-selected="${on}" data-cat="${c}" class="shrink-0 whitespace-nowrap rounded-full border px-4 py-1.5 text-sm font-medium transition ${cls}">${c}</button>`;
+  }).join("");
+}
+
+function renderCards() {
+  const q = $("search").value.trim().toLowerCase();
+  const list = tools.filter(t =>
+    (activeCat === "Semua" || t.cat === activeCat) &&
+    (t.name + " " + t.desc + " " + t.cat).toLowerCase().includes(q)
+  );
+  $("count").textContent = `Menampilkan ${list.length} alat`;
+  $("empty").classList.toggle("hidden", list.length > 0);
+  $("grid").innerHTML = list.map(t => `
+    <article class="flex flex-col rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition">
+      <div class="flex items-start justify-between gap-3">
+        <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950 grid place-items-center text-xl">${t.icon}</div>
+        <span class="rounded-full px-2.5 py-1 text-xs font-semibold ${priceStyle[t.price]}">${t.price}</span>
+      </div>
+      <h3 class="mt-4 font-semibold text-lg">${t.name}</h3>
+      <p class="text-xs font-medium text-indigo-600 dark:text-indigo-400 mt-0.5">${t.cat}</p>
+      <p class="mt-2 text-sm text-slate-600 dark:text-slate-400 flex-1">${t.desc}</p>
+      <a href="${t.url}" target="_blank" rel="noopener noreferrer"
+         class="mt-4 inline-flex items-center justify-center gap-1.5 rounded-xl bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-4 py-2 text-sm font-medium hover:opacity-90 transition">
+        Kunjungi situs <span aria-hidden="true">↗</span>
+      </a>
+    </article>`).join("");
+}
+
+$("chips").addEventListener("click", e => {
+  const b = e.target.closest("button[data-cat]");
+  if (!b) return;
+  activeCat = b.dataset.cat;
+  renderChips();
+  renderCards();
+});
+$("search").addEventListener("input", renderCards);
+
+renderChips();
+renderCards();
+</script>
 </body>
 </html>
