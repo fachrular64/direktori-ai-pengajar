@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduAI Directory - Alat AI Terbaik untuk Guru & Dosen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 py-8 px-4 text-center">
+    <h1 class="text-3xl font-bold text-indigo-600">EduAI Directory</h1>
+    <p class="text-slate-600 mt-2 max-w-xl mx-auto">
+      Kumpulan alat AI pilihan untuk membantu pembuatan RPP, kuis otomatis, slide presentasi, dan materi ajar interaktif.
+    </p>
+  </header>
+
+  <!-- Filter & Search Section -->
+  <main class="max-w-5xl mx-auto px-4 py-8">
+    <div class="flex flex-col sm:flex-row gap-4 justify-between items-center mb-8">
+      <!-- Kolom Pencarian -->
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Cari alat AI (misal: RPP, kuis, presentasi)..."
+        class="w-full sm:w-1/2 p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        onkeyup="filterTools()"
+      />
+      <!-- Filter Kategori -->
+      <select
+        id="categorySelect"
+        class="w-full sm:w-auto p-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        onchange="filterTools()"
+      >
+        <option value="All">Semua Kategori</option>
+        <option value="RPP & Modul">RPP & Modul Ajar</option>
+        <option value="Kuis & Asesmen">Kuis & Asesmen</option>
+        <option value="Presentasi">Presentasi & Media</option>
+      </select>
+    </div>
+
+    <!-- Grid Kartu Alat AI -->
+    <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Data dimasukkan otomatis oleh JavaScript -->
+    </div>
+  </main>
+
+  <script>
+    // Data dummy 6 Alat AI untuk Guru
+    const tools = [
+      {
+        name: "MagicSchool.ai",
+        category: "RPP & Modul",
+        desc: "Membuat RPP, silabus, dan lembar kerja siswa secara otomatis dalam hitungan detik.",
+        price: "Gratis / Freemium",
+        url: "https://www.magicschool.ai"
+      },
+      {
+        name: "Quizizz AI",
+        category: "Kuis & Asesmen",
+        desc: "Mengubah file PDF atau teks materi pelajaran menjadi kuis interaktif otomatis.",
+        price: "Gratis / Premium",
+        url: "https://quizizz.com"
+      },
+      {
+        name: "Gamma.app",
+        category: "Presentasi",
+        desc: "Membuat slide presentasi mengajar yang menarik hanya dari ide kalimat singkat.",
+        price: "Gratis / Freemium",
+        url: "https://gamma.app"
+      },
+      {
+        name: "Eduaide.ai",
+        category: "RPP & Modul",
+        desc: "Menyediakan 100+ tipe generator konten pembelajaran dan instrumen penilaian.",
+        price: "Freemium",
+        url: "https://www.eduaide.ai"
+      },
+      {
+        name: "Conker.ai",
+        category: "Kuis & Asesmen",
+        desc: "Pembuat soal pilihan ganda atau esai yang disesuaikan dengan tingkat usia siswa.",
+        price: "Gratis",
+        url: "https://www.conker.ai"
+      },
+      {
+        name: "Curipod",
+        category: "Presentasi",
+        desc: "Membuat slide presentasi interaktif lengkap dengan polling dan pertanyaan langsung.",
+        price: "Gratis / Freemium",
+        url: "https://curipod.com"
+      }
+    ];
+
+    function renderTools(data) {
+      const grid = document.getElementById("toolsGrid");
+      grid.innerHTML = "";
+
+      if (data.length === 0) {
+        grid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-8">Alat AI tidak ditemukan.</p>`;
+        return;
+      }
+
+      data.forEach(tool => {
+        grid.innerHTML += `
+          <div class="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow-md transition flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-bold text-lg text-slate-900">${tool.name}</h3>
+                <span class="text-xs bg-indigo-50 text-indigo-700 px-2.5 py-1 rounded-full font-medium">${tool.category}</span>
+              </div>
+              <p class="text-slate-600 text-sm mb-4">${tool.desc}</p>
+            </div>
+            <div class="flex items-center justify-between pt-4 border-t border-slate-100 mt-2">
+              <span class="text-xs text-slate-500">${tool.price}</span>
+              <a href="${tool.url}" target="_blank" class="text-sm text-indigo-600 font-semibold hover:underline">Kunjungi &rarr;</a>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function filterTools() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      const category = document.getElementById("categorySelect").value;
+
+      const filtered = tools.filter(tool => {
+        const matchSearch = tool.name.toLowerCase().includes(search) || tool.desc.toLowerCase().includes(search);
+        const matchCategory = category === "All" || tool.category === category;
+        return matchSearch && matchCategory;
+      });
+
+      renderTools(filtered);
+    }
+
+    // Tampilkan data awal saat halaman dimuat
+    renderTools(tools);
+  </script>
+</body>
+</html>
